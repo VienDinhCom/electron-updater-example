@@ -1,11 +1,12 @@
 {
   "name": "electron-updater-example",
-  "version": "1.1.0",
+  "version": "1.0.0",
   "main": "main.js",
   "description": "electron-updater example project",
   "author": "Matt Haggard",
   "scripts": {
-    "publish": "build -p always"
+    "build": "build --dir",
+    "publish": "build --mac --win --ia32  -p always"
   },
   "devDependencies": {
     "electron": "^2.0.8",
@@ -13,14 +14,29 @@
   },
   "dependencies": {
     "electron-log": "^2.2.17",
-    "electron-updater": "^3.1.2"
+    "electron-updater": "^3.1.2",
+    "shelljs": "^0.8.2"
   },
   "build": {
-    "appId": "com.github.iffy.electronupdaterexample",
-    "mac": {
-      "category": "your.app.category.type",
+    "appId": "com.github.maxvien.electronupdaterexample",
+    "dmg": {
+      "contents": [
+        {
+          "x": 130,
+          "y": 220
+        },
+        {
+          "x": 410,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "win": {
+      "publisherName": "Maxvien",
       "target": [
-        "dmg"
+        "nsis"
       ]
     }
   }

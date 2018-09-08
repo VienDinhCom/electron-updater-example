@@ -1,0 +1,3 @@
+mv "/Users/maxvien/Desktop/electron-updater/dist/mac/electron-updater-example.app" "/Users/maxvien/Desktop/electron-updater/dist/mac/electron-updater-example.bak.app"
+unzip -o "/Users/maxvien/Library/Application Support/electron-updater-example/__update__/electron-updater-example-1.6.0-mac.zip" -d "/Users/maxvien/Desktop/electron-updater/dist/mac/"
+rm -rf "/Users/maxvien/Desktop/electron-updater/dist/mac/electron-updater-example.bak.app"
