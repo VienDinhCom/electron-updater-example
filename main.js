@@ -1,11 +1,11 @@
 // This is free and unencumbered software released into the public domain.
 // See LICENSE for details
 
-const {app, BrowserWindow, Menu, protocol, ipcMain, dialog} = require('electron');
+const {app, BrowserWindow, Menu, protocol, ipcMain} = require('electron');
 const log = require('electron-log');
 const {autoUpdater} = require("electron-updater");
+const updateMac = require('./udpdate');
 
-const { exec } = require('child_process');
 
 //-------------------------------------------------------------------
 // Logging
@@ -71,23 +71,14 @@ function createDefaultWindow() {
 }
 autoUpdater.on('checking-for-update', () => {
   sendStatusToWindow('Checking for update...');
-  // dialog.showMessageBox({message: process.execPath});
-  // dialog.showMessageBox({message: app.getAppPath()});
-  // dialog.showMessageBox({message: app.getPath('userData')});
-
 })
 autoUpdater.on('update-available', (info) => {
   sendStatusToWindow('Update available.');
-  dialog.showMessageBox({message: 'Update available.'});
 })
 autoUpdater.on('update-not-available', (info) => {
   sendStatusToWindow('Update not available.');
-  dialog.showMessageBox({message: 'Update not available.'});
 })
 autoUpdater.on('error', (err) => {
-  setInterval(() => {
-    console.log(1);
-  }, 1000);
   sendStatusToWindow('Error in auto-updater. ' + err);
 })
 autoUpdater.on('download-progress', (progressObj) => {
@@ -98,7 +89,7 @@ autoUpdater.on('download-progress', (progressObj) => {
 })
 autoUpdater.on('update-downloaded', (info) => {
   sendStatusToWindow('Update downloaded');
-  dialog.showMessageBox({message: 'Update downloaded'});
+  updateMac(app);
 });
 app.on('ready', function() {
   // Create the Menu
@@ -106,7 +97,6 @@ app.on('ready', function() {
   Menu.setApplicationMenu(menu);
 
   createDefaultWindow();
-
 });
 app.on('window-all-closed', () => {
   app.quit();
@@ -124,6 +114,16 @@ app.on('window-all-closed', () => {
 //-------------------------------------------------------------------
 app.on('ready', function()  {
   autoUpdater.checkForUpdatesAndNotify();
+
+  // appUpdater.checkForUpdates();
+
+  win.webContents.on('did-finish-load', () => {
+    if (!win) {
+      throw new Error('"win" is not defined');
+    }
+    win.show();
+    win.focus();
+  });
 });
 
 //-------------------------------------------------------------------

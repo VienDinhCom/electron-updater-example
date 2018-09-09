@@ -5,7 +5,7 @@
   "description": "electron-updater example project",
   "author": "Matt Haggard",
   "scripts": {
-    "build": "build --dir",
+    "build": "build --mac",
     "publish": "build --mac --win --ia32  -p always"
   },
   "devDependencies": {
@@ -18,19 +18,12 @@
     "shelljs": "^0.8.2"
   },
   "build": {
+    "productName": "Electron Updater Example",
     "appId": "com.github.maxvien.electronupdaterexample",
-    "dmg": {
-      "contents": [
-        {
-          "x": 130,
-          "y": 220
-        },
-        {
-          "x": 410,
-          "y": 220,
-          "type": "link",
-          "path": "/Applications"
-        }
+    "mac": {
+      "category": "public.app-category.education",
+      "target": [
+        "zip"
       ]
     },
     "win": {
