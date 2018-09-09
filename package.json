@@ -27,7 +27,6 @@
       ]
     },
     "win": {
-      "publisherName": "Maxvien",
       "target": [
         "nsis"
       ]
